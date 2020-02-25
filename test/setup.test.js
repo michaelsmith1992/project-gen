@@ -3,6 +3,7 @@ const { setUp } = require("../setup");
 const fs = require("fs");
 
 describe('setUp()', () => {
+  process.argv[2] = "test"
   it('git init', (done) => {
     const cbFunc = (err, stdout, stderr) => {
       expect(stdout).not.to.be.null;
@@ -11,8 +12,8 @@ describe('setUp()', () => {
     setUp(cbFunc);
   });
   it('creates index file', (done) => {
-    const cbFunc = () => {
-      fs.readFile("./index.js", (err, file) => {
+    const cbFunc = (err, path) => {
+      fs.readFile(path + "/index.js", (err, file) => {
         expect(err).to.be.null;
         done();
       })
@@ -20,8 +21,8 @@ describe('setUp()', () => {
     setUp(cbFunc);
   });
   it('creates spec folder', (done) => {
-    const cbFunc = () => {
-      fs.readdir("./spec", (err, file) => {
+    const cbFunc = (err, path) => {
+      fs.readdir(path + "/spec", (err, file) => {
         expect(err).to.be.null;
         done();
       })
@@ -29,8 +30,8 @@ describe('setUp()', () => {
     setUp(cbFunc);
   });
   it('creates spec file', (done) => {
-    const cbFunc = () => {
-      fs.readFile("./spec/index.spec.js", (err, file) => {
+    const cbFunc = (err, path) => {
+      fs.readFile(path + "/spec/index.spec.js", (err, file) => {
         expect(err).to.be.null;
         done();
       })
@@ -38,8 +39,8 @@ describe('setUp()', () => {
     setUp(cbFunc);
   });
   it('creates package.json file', (done) => {
-    const cbFunc = () => {
-      fs.readFile("./package.json", (err, file) => {
+    const cbFunc = (err, path) => {
+      fs.readFile(path + "/package.json", (err, file) => {
         expect(err).to.be.null;
         done();
       })
@@ -47,8 +48,8 @@ describe('setUp()', () => {
     setUp(cbFunc);
   });
   it('creates readme file', (done) => {
-    const cbFunc = () => {
-      fs.readFile("./readme.md", (err, file) => {
+    const cbFunc = (err, path) => {
+      fs.readFile(path + "/readme.md", (err, file) => {
         expect(err).to.be.null;
         done();
       })
@@ -56,8 +57,8 @@ describe('setUp()', () => {
     setUp(cbFunc);
   });
   it('creates eslint file', (done) => {
-    const cbFunc = () => {
-      fs.readFile("./eslintrc.json", (err, file) => {
+    const cbFunc = (err, path) => {
+      fs.readFile(path + "/eslintrc.json", (err, file) => {
         expect(err).to.be.null;
         done();
       })
@@ -65,8 +66,8 @@ describe('setUp()', () => {
     setUp(cbFunc);
   });
   it('creates gitignore file', (done) => {
-    const cbFunc = () => {
-      fs.readFile("./.gitignore", (err, file) => {
+    const cbFunc = (err, path) => {
+      fs.readFile(path + "/.gitignore", (err, file) => {
         expect(err).to.be.null;
         done();
       })

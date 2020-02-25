@@ -25,44 +25,61 @@ const package = {
   }
 }
 
+console.log(process.argv)
+
 setUp((err, result) => {
   console.log("Project Created!")
 });
 
 function setUp(callBack) {
+  const path = "./" + process.argv[2];
   exec("git init", (err, stdout, stderr) => {
     if (err) {
       callBack(err)
     }
-    fs.writeFile("./index.js", "", (err) => {
+    fs.mkdir(path, { recursive: true }, (err) => {
       if (err) {
         callBack(err)
       }
-      fs.mkdir("./spec", { recursive: true }, (err) => {
+      fs.writeFile(path + "/index.js", "", (err) => {
         if (err) {
           callBack(err)
         }
-        fs.writeFile("./spec/index.spec.js", "", (err) => {
+        fs.mkdir(path + "/spec", { recursive: true }, (err) => {
           if (err) {
             callBack(err)
           }
-          fs.writeFile("./package.json", JSON.stringify(package, null, 2), (err) => {
+          fs.writeFile(path + "/spec/index.spec.js", "", (err) => {
             if (err) {
               callBack(err)
             }
-            fs.writeFile("./readme.md", "", (err) => {
+            fs.writeFile(path + "/package.json", JSON.stringify(package, null, 2), (err) => {
               if (err) {
                 callBack(err)
               }
-              fs.writeFile("./eslintrc.json", "", (err) => {
+              fs.writeFile(path + "/readme.md", "", (err) => {
                 if (err) {
                   callBack(err)
                 }
-                fs.writeFile("./.gitignore", "node_modules", "utf-8", (err) => {
+                fs.writeFile(path + "/eslintrc.json", "", (err) => {
                   if (err) {
                     callBack(err)
                   }
-                  callBack(null, true)
+                  fs.writeFile(path + "/.gitignore", "node_modules", "utf-8", (err) => {
+                    if (err) {
+                      callBack(err)
+                    }
+                    if (process.argv[2] !== "test") {
+                      exec(`npm --prefix ${path} install`, (err, stdout, stderr) => {
+                        if (err) {
+                          callBack(err)
+                        }
+                        callBack(null, path)
+                      })
+                    } else {
+                      callBack(null, path)
+                    }
+                  })
                 })
               })
             })
