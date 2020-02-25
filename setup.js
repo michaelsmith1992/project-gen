@@ -69,7 +69,7 @@ function setUp(callBack) {
                     if (err) {
                       callBack(err)
                     }
-                    if (process.argv[2] !== "testcase") {
+                    if (process.argv[100] !== "testcase") {
                       exec(`npm --prefix ${path} install`, (err, stdout, stderr) => {
                         if (err) {
                           callBack(err)

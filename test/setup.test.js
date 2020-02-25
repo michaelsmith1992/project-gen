@@ -4,6 +4,7 @@ const fs = require("fs");
 
 describe('setUp()', () => {
   process.argv[2] = "testcase"
+  process.argv[100] = "testcase"
   it('git init', (done) => {
     const cbFunc = (err, stdout, stderr) => {
       expect(stdout).not.to.be.null;
