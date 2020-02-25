@@ -1,6 +1,6 @@
+#! /usr/bin/env node
 const fs = require("fs");
 const { exec } = require('child_process');
-
 const package = {
   "name": "project-gen-test",
   "version": "1.0.0",
@@ -24,6 +24,10 @@ const package = {
     "mocha": "^7.0.1"
   }
 }
+
+setUp((err, result) => {
+  console.log("Project Created!")
+});
 
 function setUp(callBack) {
   exec("git init", (err, stdout, stderr) => {
